@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -21,7 +22,10 @@ type Topic struct {
 }
 
 func main(){
-	db, err := sql.Open("mysql", "%v: %v@tcp(192.168.0.13:3306)/test",USERNAME,PASSWORD)
+	USERNAME := os.Getenv("USERNAME")
+	PASSWORD := os.Getenv("PASSWORD")
+	dsn := fmt.Sprintf("%s:%s@tcp(192.168.0.13:3306)/test",USERNAME,PASSWORD)
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Println("DB 열기 실패: ",err)
 	}
