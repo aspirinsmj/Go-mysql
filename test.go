@@ -21,7 +21,7 @@ type Topic struct {
 }
 
 func main(){
-	db, err := sql.Open("mysql", "root:1234@tcp(127.0.0.1:3306)/test")
+	db, err := sql.Open("mysql", "root:1234@tcp(192.168.0.13:3306)/test")
 	if err != nil {
 		fmt.Println("DB 열기 실패: ",err)
 	}
