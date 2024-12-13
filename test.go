@@ -22,9 +22,11 @@ type Topic struct {
 }
 
 func main(){
-	USERNAME := os.Getenv("USERNAME")
-	PASSWORD := os.Getenv("PASSWORD")
-	dsn := fmt.Sprintf("%s:%s@tcp(192.168.0.13:3306)/jango",USERNAME,PASSWORD)
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	username := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/jango", username, password, dbHost, dbPort, database)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Println("DB 열기 실패: ",err)
@@ -32,6 +34,10 @@ func main(){
 	fmt.Println("Connected to MySQL database!")
 	defer db.Close()
 
+	err = db.Ping()
+        if err != nil {
+		log.Fatalf("DB 연결 실패: %v", err)
+	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
 		rows, err := db.Query("SELECT id, title, description, created, author, profile FROM topic")
 		if err != nil {
