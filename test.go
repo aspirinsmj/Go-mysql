@@ -24,7 +24,7 @@ type Topic struct {
 func main(){
 	USERNAME := os.Getenv("USERNAME")
 	PASSWORD := os.Getenv("PASSWORD")
-	dsn := fmt.Sprintf("%s:%s@tcp(192.168.0.13:3306)/test",USERNAME,PASSWORD)
+	dsn := fmt.Sprintf("%s:%s@tcp(192.168.0.13:3306)/jango",USERNAME,PASSWORD)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Println("DB 열기 실패: ",err)
