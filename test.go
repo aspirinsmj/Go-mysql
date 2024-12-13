@@ -26,7 +26,7 @@ func main(){
 	dbPort := os.Getenv("DB_PORT")
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/jango", username, password, dbHost, dbPort, database)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/jango", username, password, dbHost, dbPort)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Println("DB 열기 실패: ",err)
